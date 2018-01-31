@@ -5,12 +5,19 @@
       <blockquote class="blockquote">
         &#8220;{{ category_name }}.&#8221;
 
-        <input type="text" v-model="postBody" @change="postPost()"/>
+        <ul v-if="posts && posts.length">
+          <li v-for="post of posts">
+            <p><strong>{{post.title}}</strong></p>
+            <p>{{post.body}}</p>
+          </li>
+        </ul>
+
         <ul v-if="errors && errors.length">
           <li v-for="error of errors">
             {{error.message}}
           </li>
         </ul>
+
       </blockquote>
     </v-flex>
   </v-layout>
