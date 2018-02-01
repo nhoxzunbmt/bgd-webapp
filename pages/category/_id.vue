@@ -50,7 +50,7 @@
         },
         getFeaturedImage: function (post) {
           if (_.isUndefined(post.better_featured_image.media_details.sizes.featured)) return ''
-          return ''// return post.better_featured_image.media_details.sizes.featured.source_url
+          return post.better_featured_image.media_details.sizes.featured.source_url
         }
       }
     }

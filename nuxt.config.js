@@ -72,6 +72,6 @@ module.exports = {
     }
   },
   env: {
-    baseUrlApi: process.env.NODE_ENV !== 'production' ? 'https://bepgiadinh.com' : 'http://localhost:3000'
+    baseUrlApi: process.env.NODE_ENV !== 'production' ? 'https://www.bepgiadinh.com' : 'http://localhost:3000'
   }
 }

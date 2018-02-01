@@ -8,8 +8,8 @@
 
             <v-flex v-if="posts && posts.length" xs12 sm6 md3 v-for="post of posts" :key="post.id">
                 <v-card>
-                    <div v-if="post.better_featured_image && post.better_featured_image.media_details.sizes.featured.source_url">
-                        <v-card-media :src="post.better_featured_image.media_details.sizes.featured.source_url" height="200px">
+                    <div v-if="post.better_featured_image">
+                        <v-card-media :src="getFeaturedImage(post)" height="200px">
                         </v-card-media>
                     </div>
                     <v-card-title primary-title>
@@ -38,6 +38,7 @@
 <script>
   import axios from 'axios'
   import PostList from '../components/PostList.vue'
+  import _ from 'lodash'
   export default {
     data () {
       return {
@@ -48,7 +49,7 @@
     },
     // Fetches posts when the component is created.
     created () {
-      axios.get(`http://local.bepgiadinh.com/wp-json/wp/v2/posts?page=1&fields=id,title,slug,date,better_featured_image,excerpt`)
+      axios.get(`${process.env.baseUrlApi}/wp-json/wp/v2/posts?page=1&fields=id,title,slug,date,better_featured_image,excerpt`)
         .then(response => {
           // JSON responses are automatically parsed.
           this.posts = response.data
@@ -62,6 +63,10 @@
         let postUrl = post.link.replace('http://local.bepgiadinh.com', 'category')
         postUrl = '/post/' + post.id
         return postUrl
+      },
+      getFeaturedImage: function (post) {
+        if (_.isUndefined(post.better_featured_image.media_details.sizes.featured)) return ''
+        return post.better_featured_image.media_details.sizes.featured.source_url
       }
     },
     components: {
