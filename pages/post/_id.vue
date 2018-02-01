@@ -1,21 +1,11 @@
 <template>
     <v-layout>
-        <v-flex text-xs-center>
-            <img src="/v.png" alt="Vuetify.js" class="mb-5">
-            <blockquote class="blockquote">
-                &#8220;{{ post.title.rendered }}.&#8221;
+        <v-flex>
+                <h1 v-html="post.title.rendered" class="post-title"></h1>
+                <!--<img :src="post.better_featured_image.media_details.sizes.featured.source_url" :alt="post.title.rendered">-->
 
-                <img :src="post.better_featured_image.media_details.sizes.featured.source_url" :alt="post.title.rendered">
-
-                <div v-html="post.content.rendered">
+                <div v-html="post.content.rendered" class="post-content">
                 </div>
-
-                <footer>
-                    <small>
-                        <em>&mdash;John Johnson</em>
-                    </small>
-                </footer>
-            </blockquote>
         </v-flex>
     </v-layout>
 </template>
@@ -48,3 +38,19 @@
       }
     }
 </script>
+<style>
+    .post-title{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .post-content{
+        font-size: 18px;
+    }
+    .post-content img{
+        max-width: 100%;
+        height: auto;
+    }
+    .post-content ul{
+        margin-left: 25px;
+    }
+</style>

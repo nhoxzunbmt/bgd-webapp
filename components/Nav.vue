@@ -31,12 +31,12 @@
       <img :src="logo_src" id="vwp-logo" :alt="title" exact/>
     </router-link>
     <v-spacer></v-spacer>
-    <v-btn
-            icon
-            @click.stop="rightDrawer = !rightDrawer"
-    >
-      <v-icon>menu</v-icon>
-    </v-btn>
+    <!--<v-btn-->
+            <!--icon-->
+            <!--@click.stop="rightDrawer = !rightDrawer"-->
+    <!--&gt;-->
+      <!--<v-icon>menu</v-icon>-->
+    <!--</v-btn>-->
   </v-toolbar>
 </div>
 </template>

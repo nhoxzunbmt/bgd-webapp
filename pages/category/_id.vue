@@ -9,10 +9,11 @@
                 </div>
                 <v-card-title primary-title>
                     <div>
-                        <nuxt-link :to="getLink(post)">
-                            <h3 class="headline mb-0" v-html="post.title.rendered"></h3>
+                        <h3 class="post-title">
+                        <nuxt-link :to="getLink(post)" v-html="post.title.rendered">
                         </nuxt-link>
-                        <div v-html="post.excerpt.rendered"></div>
+                        </h3>
+                        <div v-html="getExcerpt(post)"></div>
                     </div>
                 </v-card-title>
 
@@ -51,7 +52,22 @@
         getFeaturedImage: function (post) {
           if (_.isUndefined(post.better_featured_image.media_details.sizes.featured)) return ''
           return post.better_featured_image.media_details.sizes.featured.source_url
+        },
+        getExcerpt: function (post) {
+          return _.truncate(post.excerpt.rendered, {
+            'length': 120
+          })
         }
       }
     }
 </script>
+<style>
+    .post-title a{
+        text-align: center;
+        font-size: 18px;
+        color: #a92929;
+        text-decoration: none;
+        margin-bottom: 10px;
+        display: block;
+    }
+</style>
