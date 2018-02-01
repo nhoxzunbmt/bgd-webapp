@@ -1,30 +1,71 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-xs-center">
-        <img src="/v.png" alt="Vuetify.js" class="mb-5" />
-      </div>
-      <v-card>
-        <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>For more information on Vuetify, check out the <a href="https://vuetifyjs.com" target="_blank">documentation</a>.</p>
-          <p>If you have questions, please join the official <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">discord</a>.</p>
-          <p>Find a bug? Report it on the github <a href="https://github.com/vuetifyjs/vuetify/issues" target="_blank" title="contribute">issue board</a>.</p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-          <br>
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank">Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+
+    <!--<post-list :posts="posts"></post-list>-->
+
+
+            <v-flex v-if="posts && posts.length" xs12 sm6 md3 v-for="post of posts" :key="post.id">
+                <v-card>
+                    <div v-if="post.better_featured_image && post.better_featured_image.media_details.sizes.featured.source_url">
+                        <v-card-media :src="post.better_featured_image.media_details.sizes.featured.source_url" height="200px">
+                        </v-card-media>
+                    </div>
+                    <v-card-title primary-title>
+                        <div>
+                            <nuxt-link :to="getLink(post)">
+                                <h3 class="headline mb-0" v-html="post.title.rendered"></h3>
+                            </nuxt-link>
+                            <div v-html="post.excerpt.rendered"></div>
+                        </div>
+                    </v-card-title>
+
+                </v-card>
+            </v-flex>
+
+
+
+    <ul v-if="errors && errors.length">
+      <li v-for="error of errors">
+        {{error.message}}
+      </li>
+    </ul>
+
   </v-layout>
+  </v-container>
 </template>
+<script>
+  import axios from 'axios'
+  import PostList from '../components/PostList.vue'
+  export default {
+    data () {
+      return {
+        category_name: 'Mon Ngon',
+        posts: [],
+        errors: []
+      }
+    },
+    // Fetches posts when the component is created.
+    created () {
+      axios.get(`http://local.bepgiadinh.com/wp-json/wp/v2/posts?page=1&fields=id,title,slug,date,better_featured_image,excerpt`)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.posts = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    },
+    methods: {
+      getLink: function (post) {
+        let postUrl = post.link.replace('http://local.bepgiadinh.com', 'category')
+        postUrl = '/post/' + post.id
+        return postUrl
+      }
+    },
+    components: {
+      PostList
+    }
+  }
+</script>

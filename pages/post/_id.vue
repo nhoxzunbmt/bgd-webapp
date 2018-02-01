@@ -23,7 +23,7 @@
     import axios from 'axios'
     export default {
       async asyncData ({ req, params }) {
-        return axios.get(`http://local.bepgiadinh.com/wp-json/wp/v2/posts/${params.id}`)
+        return axios.get(`${process.env.baseUrlApi}/wp-json/wp/v2/posts/${params.id}`)
           .then((res) => {
             return { post: res.data }
           })
