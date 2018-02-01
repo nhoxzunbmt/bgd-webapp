@@ -10,14 +10,13 @@
         </div>
         <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0" v-html="post.title.rendered"></h3>
+            <nuxt-link :to="getLink(post)">
+              <h3 class="headline mb-0" v-html="post.title.rendered"></h3>
+            </nuxt-link>
             <div v-html="post.excerpt.rendered"></div>
           </div>
         </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
+
       </v-card>
     </v-flex>
 
@@ -52,15 +51,13 @@
         .catch(e => {
           this.errors.push(e)
         })
-
-      // async / await version (created() becomes async created())
-      //
-      // try {
-      //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-      //   this.posts = response.data
-      // } catch (e) {
-      //   this.errors.push(e)
-      // }
+    },
+    methods: {
+      getLink: function (post) {
+        let postUrl = post.link.replace('http://local.bepgiadinh.com', 'category')
+        postUrl = 'post/' + post.id
+        return postUrl
+      }
     }
   }
 </script>

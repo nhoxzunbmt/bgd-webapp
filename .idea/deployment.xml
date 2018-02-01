@@ -37,6 +37,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="marrybaby.vn">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ringiervn">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="tool.webnew.vn (1)">
         <serverdata>
           <mappings>

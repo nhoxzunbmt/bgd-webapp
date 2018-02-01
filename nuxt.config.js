@@ -2,6 +2,13 @@ const nodeExternals = require('webpack-node-externals')
 const resolve = (dir) => require('path').join(__dirname, dir)
 
 module.exports = {
+  extendRoutes (routes, resolve) {
+    routes.push({
+      name: 'custom',
+      path: '/custom',
+      component: resolve(__dirname, 'pages/custom.vue')
+    })
+  },
   /*
   ** Headers of the page
   */
@@ -31,10 +38,10 @@ module.exports = {
   build: {
     babel: {
       plugins: [
-        ["transform-imports", {
-          "vuetify": {
-            "transform": "vuetify/es5/components/${member}",
-            "preventFullImport": true
+        ['transform-imports', {
+          'vuetify': {
+            'transform': 'vuetify/es5/components/${member}',
+            'preventFullImport': true
           }
         }]
       ]
